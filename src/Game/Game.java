@@ -34,6 +34,8 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 
 import Client.JConfig;
 import Client.Launcher;
@@ -53,7 +55,7 @@ public class Game extends JFrame implements AppletStub, ComponentListener, Windo
 	{
 		return m_applet;
 	}
-
+	
 	public void start()
 	{
 		if(m_applet == null)
@@ -71,10 +73,20 @@ public class Game extends JFrame implements AppletStub, ComponentListener, Windo
 		setResizable(true);
 		addWindowListener(this);
 
-		// Add applet to window
-		setContentPane(m_applet);
+		// Add applet and chat box to window
+		JLayeredPane mainLayeredPane = new JLayeredPane();
+		setContentPane(mainLayeredPane);
 		getContentPane().setBackground(Color.BLACK);
-		getContentPane().setPreferredSize(new Dimension(512, 346));
+		getContentPane().setPreferredSize(new Dimension(512, 500));
+		m_applet.setBounds(0, 0, 512, 500);
+		
+		JPanel chatPanel = new JPanel();
+		chatPanel.setBackground(Color.YELLOW);
+		chatPanel.setBounds(0, 400, 300, 80);
+		
+		mainLayeredPane.add(m_applet, new Integer(1));
+		mainLayeredPane.add(chatPanel, new Integer(2));
+		
 		pack();
 
 		// Hide cursor if software cursor
@@ -218,7 +230,11 @@ public class Game extends JFrame implements AppletStub, ComponentListener, Windo
 			launchGame();
 		}
 
+		m_applet.setBounds(0, 0, getContentPane().getWidth(), getContentPane().getHeight());
 		Renderer.resize(getContentPane().getWidth(), getContentPane().getHeight());
+		
+		// Move chat overlay
+		
 	}
 
 	@Override

@@ -112,7 +112,7 @@
 	</target>
 
 	<target name="doc" description="Generate JavaDocs">
-		<javadoc access="public" classpath="${classpath.jar}" sourcepath="${main.src.dir}" destdir="${doc.dir}" source="1.7" use="true" />
+		<javadoc access="private" classpath="${classpath.jar}" sourcepath="${main.src.dir}" destdir="${doc.dir}" source="1.7" use="true" />
 	</target>
 
 </project>
